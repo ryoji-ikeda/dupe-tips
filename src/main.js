@@ -1,60 +1,65 @@
-import './style.css'
-import javascriptLogo from './assets/javascript.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import { setupCounter } from './counter.js'
+import { marked } from "marked";
+import DOMPurify from "dompurify";
 
-document.querySelector('#app').innerHTML = `
-<section id="center">
-  <div class="hero">
-    <img src="${heroImg}" class="base" width="170" height="179">
-    <img src="${javascriptLogo}" class="framework" alt="JavaScript logo"/>
-    <img src="${viteLogo}" class="vite" alt="Vite logo" />
-  </div>
-  <div>
-    <h1>Get started</h1>
-    <p>Edit <code>src/main.js</code> and save to test <code>HMR</code></p>
-  </div>
-  <button id="counter" type="button" class="counter"></button>
-</section>
+const pages = import.meta.glob("./info/*.md", {
+  query: "?raw",
+  import: "default",
+});
 
-<div class="ticks"></div>
+const infoList = document.querySelector("#info-list");
+const content = document.querySelector("#md-content");
 
-<section id="next-steps">
-  <div id="docs">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#documentation-icon"></use></svg>
-    <h2>Documentation</h2>
-    <p>Your questions, answered</p>
-    <ul>
-      <li>
-        <a href="https://vite.dev/" target="_blank">
-          <img class="logo" src="${viteLogo}" alt="" />
-          Explore Vite
-        </a>
-      </li>
-      <li>
-        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-          <img class="button-icon" src="${javascriptLogo}" alt="">
-          Learn more
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div id="social">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#social-icon"></use></svg>
-    <h2>Connect with us</h2>
-    <p>Join the Vite community</p>
-    <ul>
-      <li><a href="https://github.com/vitejs/vite" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#github-icon"></use></svg>GitHub</a></li>
-      <li><a href="https://chat.vite.dev/" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#discord-icon"></use></svg>Discord</a></li>
-      <li><a href="https://x.com/vite_js" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#x-icon"></use></svg>X.com</a></li>
-      <li><a href="https://bsky.app/profile/vite.dev" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#bluesky-icon"></use></svg>Bluesky</a></li>
-    </ul>
-  </div>
-</section>
+function getTitle(path) {
+  return path
+    .split("/")
+    .pop()
+    .replace(".md", "")
+    .replace(/[-_]/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+}
 
-<div class="ticks"></div>
-<section id="spacer"></section>
-`
+async function loadPage(path, button) {
+  const markdown = await pages[path]();
 
-setupCounter(document.querySelector('#counter'))
+  content.innerHTML = DOMPurify.sanitize(marked.parse(markdown));
+
+  document.querySelectorAll("[data-info-button]").forEach((btn) => {
+    btn.classList.remove("bg-green-500", "text-black");
+    btn.classList.add("text-green-500");
+  });
+
+  button.classList.add("bg-green-500", "text-black");
+  button.classList.remove("text-green-500");
+}
+
+const entries = Object.entries(pages).sort(([a], [b]) => {
+  return getTitle(a).localeCompare(getTitle(b));
+});
+
+for (const [path] of entries) {
+  const button = document.createElement("button");
+
+  button.type = "button";
+  button.dataset.infoButton = "true";
+  button.textContent = getTitle(path);
+
+  button.className =
+    "block w-full rounded-lg border border-green-500/40 px-3 py-2 text-left text-green-500 transition hover:bg-green-500 hover:text-black";
+
+  button.addEventListener("click", () => loadPage(path, button));
+
+  infoList.appendChild(button);
+}
+
+const defaultPagePath = "./info/00-home.md";
+
+if (entries.length > 0) {
+  const defaultEntryIndex = entries.findIndex(([path]) => path === defaultPagePath);
+  const entryToLoad = defaultEntryIndex >= 0 ? entries[defaultEntryIndex] : entries[0];
+
+  const buttons = Array.from(infoList.querySelectorAll("button"));
+  const buttonToActivate =
+    defaultEntryIndex >= 0 ? buttons[defaultEntryIndex] : buttons[0];
+
+  loadPage(entryToLoad[0], buttonToActivate);
+}
