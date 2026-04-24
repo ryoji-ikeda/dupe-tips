@@ -20,7 +20,17 @@
   </head>
 
  <body class="min-h-screen bg-[#242424] text-green-500">
-  <div class="grid min-h-screen grid-cols-[280px_1fr]">
+  <section id="mobile-warning" class="mobile-warning" aria-live="polite">
+    <div class="mobile-warning__card">
+      <p class="mobile-warning__eyebrow">Desktop Recommended</p>
+      <h1 class="mobile-warning__title">Please use a PC or desktop browser.</h1>
+      <p class="mobile-warning__text">
+        DupeTips is designed for larger screens and is currently unavailable on mobile devices.
+      </p>
+    </div>
+  </section>
+
+  <div id="app-shell" class="grid min-h-screen grid-cols-[280px_1fr]">
     <aside class="min-h-screen border-r border-green-500/30 bg-black/30 p-5">
       <h2 class="mb-4 text-2xl font-bold tracking-widest">
         Info
