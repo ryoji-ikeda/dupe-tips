@@ -10,7 +10,7 @@
 
 ### Why it's dangerous
 
-`NaN` behaves weirdly in comparrisons. in java, comparisons usually return `false` For example:
+`NaN` behaves weirdly in comparisons. in java, comparisons usually return `false` For example:
 
 ```java
 double amount = Double.NaN;

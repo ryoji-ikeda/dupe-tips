@@ -5,7 +5,7 @@ Container Dupe is usually one of the first things you think of when duping, you 
 ### Common causes
 - Multiple instances of the same ui opened by different players i.e. if both players can access the same vault and it doesnt have live updates
 - Improper handling of edge cases i.e. disconnects, deaths or teleportation use
-- Saving contaners asynchronously without proper ordering
+- Saving containers asynchronously without proper ordering
 
 ## Examples of exploits
 - [Enderchest Skript](https://dupedb.net/exploit/BRBk8_4s7L9) had a container dupe to do with the `/ec` command

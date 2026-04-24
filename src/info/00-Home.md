@@ -5,7 +5,7 @@
 
 # How to use this
 
-- This **WILL NOT** tell you exactly how to dupe or exploit on servers, it acts as a guide to finding theese dupes or exploit
+- This **WILL NOT** tell you exactly how to dupe or exploit on servers, it acts as a guide to finding these dupes or exploit
 - If you dont understand this, do not dm people, look it up or ChatGPT it, idc
 
 # TOS
