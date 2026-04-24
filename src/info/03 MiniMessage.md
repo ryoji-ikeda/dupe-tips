@@ -11,7 +11,7 @@ MiniMessage allows developers to include interactive components in chat messages
 - `<insert>`
 - `<open_url>`
 
-However, sometimes plugins do not sanitize user controlled stings and players can inject malicious tags, these tags may cause players to run commands without them wanting to run them, i.e. `/pay <yourname> 200`
+However, sometimes plugins do not sanitize user controlled strings and players can inject malicious tags, these tags may cause players to run commands without them wanting to run them, i.e. `/pay <yourname> 200`
 
 ## Examples of exploits
 - [Homestead](https://dupedb.net/exploit/2WMth5rSCJx) had a minimessage exploit that allows you to inject any minimessage payload into a region chat

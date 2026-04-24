@@ -20,7 +20,7 @@ System.out.println(amount <= balance); // false
 System.out.println(amount == amount); // false
 ```
 
-If a plugin does not explicitly reject `NaN`, it may corrupt balance or cause calculatiosn to behave incorrectly
+If a plugin does not explicitly reject `NaN`, it may corrupt balance or cause calculations to behave incorrectly
 
 There is an example of this in the "examples of exploits" section at the end
 
@@ -42,7 +42,7 @@ There is an example of this in the "examples of exploits" section at the end
 
 ## 3. Negative number bypass
 
-Some plugins forget to add checks reject negaive values however this is super unlikely
+Some plugins forget to add checks reject negative values however this is super unlikely
 
 Example:
 ```java
@@ -53,7 +53,7 @@ balance = balance - amount;
 
 ### Why it's dangerous
 
-Suptracting a negative value will add to the value instead, creating money from thin air
+Subtracting a negative value will add to the value instead, creating money from thin air
 ```java
 double balance = 100;
 double amount = -50;
