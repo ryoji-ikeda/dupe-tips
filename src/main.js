@@ -14,6 +14,8 @@ const languageAliases = {
   js: "javascript",
   sh: "bash",
 };
+const portraitMediaQuery = window.matchMedia("(orientation: portrait)");
+const isPortraitViewport = portraitMediaQuery.matches;
 
 function escapeHtml(value) {
   return value
@@ -108,38 +110,50 @@ async function loadPage(path, button, pushState = true) {
   }
 }
 
-const entries = Object.entries(pages).sort(([a], [b]) => {
-  return getTitle(a).localeCompare(getTitle(b));
-});
+function initializeApp() {
+  const entries = Object.entries(pages).sort(([a], [b]) => {
+    return getTitle(a).localeCompare(getTitle(b));
+  });
 
-const buttonByPath = new Map();
+  const buttonByPath = new Map();
 
-for (const [path] of entries) {
-  const button = document.createElement("button");
+  for (const [path] of entries) {
+    const button = document.createElement("button");
 
-  button.type = "button";
-  button.dataset.infoButton = "true";
-  button.textContent = getTitle(path);
+    button.type = "button";
+    button.dataset.infoButton = "true";
+    button.textContent = getTitle(path);
 
-  button.className =
-    "block w-full rounded-lg border border-green-500/40 px-3 py-2 text-left text-green-500 transition hover:bg-green-500 hover:text-black";
+    button.className =
+      "block w-full rounded-lg border border-green-500/40 px-3 py-2 text-left text-green-500 transition hover:bg-green-500 hover:text-black";
 
-  button.addEventListener("click", () => loadPage(path, button));
+    button.addEventListener("click", () => loadPage(path, button));
 
-  infoList.appendChild(button);
-  buttonByPath.set(path, button);
+    infoList.appendChild(button);
+    buttonByPath.set(path, button);
+  }
+
+  if (entries.length > 0) {
+    const entryToLoad = getPageFromCurrentUrl(entries);
+    const buttonToActivate = buttonByPath.get(entryToLoad[0]);
+
+    loadPage(entryToLoad[0], buttonToActivate, false);
+  }
+
+  window.addEventListener("popstate", () => {
+    const entryToLoad = getPageFromCurrentUrl(entries);
+    const buttonToActivate = buttonByPath.get(entryToLoad[0]);
+
+    loadPage(entryToLoad[0], buttonToActivate, false);
+  });
 }
 
-if (entries.length > 0) {
-  const entryToLoad = getPageFromCurrentUrl(entries);
-  const buttonToActivate = buttonByPath.get(entryToLoad[0]);
-
-  loadPage(entryToLoad[0], buttonToActivate, false);
+if (isPortraitViewport) {
+  portraitMediaQuery.addEventListener("change", ({ matches }) => {
+    if (!matches) {
+      window.location.reload();
+    }
+  });
+} else {
+  initializeApp();
 }
-
-window.addEventListener("popstate", () => {
-  const entryToLoad = getPageFromCurrentUrl(entries);
-  const buttonToActivate = buttonByPath.get(entryToLoad[0]);
-
-  loadPage(entryToLoad[0], buttonToActivate, false);
-});
