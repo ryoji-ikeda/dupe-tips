@@ -10,6 +10,5 @@
 
 # TOS
 
-- Only dupe on servers that promote gambling to children
 - Never test on servers or plugins without permission
 - This is only for education
