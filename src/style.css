@@ -179,20 +179,13 @@ svg {
   width: 2.65rem;
   height: 2.65rem;
   place-items: center;
-  border: 1px solid var(--border-strong);
-  border-radius: 0.9rem;
-  background:
-    linear-gradient(135deg, var(--accent-soft), transparent),
-    var(--surface-elevated);
   color: var(--accent-strong);
-  box-shadow: 0 12px 32px var(--accent-glow);
 }
 
 .brand-mark img {
-  width: 1.55rem;
-  height: 1.55rem;
+  width: 1.75rem;
+  height: 1.75rem;
   object-fit: contain;
-  filter: drop-shadow(0 0 12px var(--accent-glow));
 }
 
 .brand-title,
@@ -408,99 +401,30 @@ svg {
   padding: clamp(1rem, 2.4vw, 2.35rem) 0 4rem;
 }
 
+.route-outlet:focus,
+.route-outlet:focus-visible {
+  outline: none;
+}
+
 .home-page {
   position: relative;
   isolation: isolate;
 }
 
-.homepage-effect {
-  position: absolute;
-  inset: -2rem 0 auto;
-  z-index: -1;
-  height: clamp(24rem, 46vw, 44rem);
-  overflow: hidden;
-  border-radius: 2rem;
-  pointer-events: none;
-}
-
-.homepage-effect::before,
-.homepage-effect::after {
-  position: absolute;
-  content: "";
-  inset: 0;
-}
-
-.homepage-effect::before {
-  background:
-    radial-gradient(circle at 16% 28%, var(--accent-glow), transparent 16rem),
-    radial-gradient(circle at 72% 24%, rgba(59, 130, 246, 0.16), transparent 18rem),
-    linear-gradient(115deg, transparent 0 44%, var(--accent-soft) 44% 45%, transparent 45% 100%);
-  animation: aurora-shift 12s ease-in-out infinite alternate;
-}
-
-.homepage-effect::after {
-  opacity: 0.38;
-  background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 34px 34px;
-  mask-image: radial-gradient(circle at 50% 12%, black, transparent 72%);
-}
-
-.homepage-effect span {
-  position: absolute;
-  display: block;
-  width: 0.48rem;
-  height: 0.48rem;
-  border-radius: 999px;
-  background: var(--accent-strong);
-  box-shadow: 0 0 28px var(--accent-strong);
-  opacity: 0.78;
-  animation: node-float 8s ease-in-out infinite;
-}
-
-.homepage-effect span:nth-child(1) {
-  left: 14%;
-  top: 34%;
-}
-
-.homepage-effect span:nth-child(2) {
-  left: 58%;
-  top: 18%;
-  animation-delay: -2.5s;
-}
-
-.homepage-effect span:nth-child(3) {
-  right: 12%;
-  top: 48%;
-  animation-delay: -5s;
-}
-
-@keyframes aurora-shift {
-  from { transform: translate3d(-1.5rem, -0.5rem, 0) scale(1); }
-  to { transform: translate3d(1.5rem, 1rem, 0) scale(1.04); }
-}
-
-@keyframes node-float {
-  0%, 100% { transform: translateY(0) scale(1); opacity: 0.55; }
-  50% { transform: translateY(-1.1rem) scale(1.25); opacity: 1; }
-}
-
 .hero-section {
   position: relative;
-  overflow: hidden;
-  border-radius: clamp(1.35rem, 3vw, 2.25rem);
+  overflow: visible;
+  border-radius: 0;
   background: transparent;
+  box-shadow: none;
 }
 
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 22% 18%, var(--accent-glow), transparent 22rem),
-    linear-gradient(115deg, transparent 0 46%, var(--accent-soft) 46% 47%, transparent 47% 100%);
-  opacity: 0.9;
+.hero-section::before,
+.hero-section::after,
+.home-page::before,
+.home-page::after {
+  display: none !important;
+  content: none !important;
 }
 
 .hero-grid {

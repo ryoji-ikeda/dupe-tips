@@ -33,12 +33,7 @@ export function renderHomeView(docs) {
   const startHref = docs.firstIntroductionPage?.href || "#/docs";
   return `
     <div class="home-page">
-      <div class="homepage-effect" aria-hidden="true">
-        <span></span><span></span><span></span>
-      </div>
-
       <section class="hero-section">
-        <div class="hero-bg" aria-hidden="true"></div>
         <div class="hero-grid">
           <div class="hero-copy">
             <div class="eyebrow-pill">Authorized server research only</div>
