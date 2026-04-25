@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -196,7 +196,8 @@ svg {
 
 .brand-title {
   font-weight: 800;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.015em;
+  line-height: 1.12;
 }
 
 .brand-subtitle {
@@ -440,10 +441,10 @@ svg {
 .hero-copy h1 {
   max-width: 13ch;
   margin: 1rem 0 1.15rem;
-  font-size: clamp(3rem, 8vw, 6.9rem);
+  font-size: clamp(3rem, 8vw, 6.0rem);
   font-weight: 850;
-  letter-spacing: -0.075em;
-  line-height: 0.9;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
 }
 
 .hero-copy p {
@@ -633,7 +634,8 @@ svg {
   color: var(--accent-strong);
   font-size: clamp(1.8rem, 3.5vw, 3rem);
   font-weight: 850;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
 }
 
 .stat-card span {
@@ -659,8 +661,8 @@ svg {
   margin: 0.9rem 0 0.65rem;
   font-size: clamp(2rem, 4vw, 3.7rem);
   font-weight: 850;
-  letter-spacing: -0.06em;
-  line-height: 0.98;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
 }
 
 .section-heading p,
@@ -708,7 +710,8 @@ svg {
   margin: 0.7rem 0 0.55rem;
   font-size: 1.18rem;
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
 }
 
 .feature-card p,
@@ -900,8 +903,8 @@ svg {
   margin: 0.8rem 0 0;
   font-size: clamp(2rem, 4vw, 4rem);
   font-weight: 850;
-  letter-spacing: -0.06em;
-  line-height: 0.96;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
 }
 
 .doc-top-link {
@@ -1030,8 +1033,8 @@ svg {
 .markdown h4 {
   color: var(--text);
   font-weight: 830;
-  letter-spacing: -0.035em;
-  line-height: 1.14;
+  letter-spacing: -0.015em;
+  line-height: 1.24;
   scroll-margin-top: calc(var(--topbar-height) + 1.5rem);
 }
 

@@ -39,8 +39,7 @@ export function renderHomeView(docs) {
             <div class="eyebrow-pill">Authorized server research only</div>
             <h1>Bug research notes, rebuilt as a modern documentation hub.</h1>
             <p>
-              DupeTips is now organized like a polished docs site: searchable markdown titles,
-              category navigation, clean reading views, and a fast table of contents for every page.
+              DupeTips is organized like a polished docs site with easy to find pages fitted neatly into catagories
             </p>
             <div class="hero-actions">
               <a class="button button-primary" href="${startHref}" data-link>
@@ -94,8 +93,7 @@ export function renderHomeView(docs) {
       <section class="section-block" id="coverage">
         <div class="section-heading">
           <span class="eyebrow-pill">What this site covers</span>
-          <h2>Designed for focused, responsible reading.</h2>
-          <p>Existing markdown is kept intact while the surrounding experience now feels like a professional docs product.</p>
+          <h2>Designed for focused reading.</h2>
         </div>
         <div class="feature-grid">
           ${homepageCards()
@@ -115,7 +113,7 @@ export function renderHomeView(docs) {
       <section class="section-block docs-preview">
         <div class="section-heading compact">
           <span class="eyebrow-pill">Documentation</span>
-          <h2>Browse by generated categories.</h2>
+          <h2>Browse by categories.</h2>
         </div>
         <div class="category-preview-grid">
           ${docs.categories
