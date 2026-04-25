@@ -2,58 +2,40 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>DupeTips</title>
-    <meta name="description" content="DupeTips - useful dupe and exploit tips for mc servers" />
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const theme = savedTheme || (prefersDark ? "dark" : "light");
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.classList.toggle("dark", theme === "dark");
+      })();
+    </script>
 
-    <meta property="og:title" content="DupeTips" />
-    <meta property="og:description" content="Useful tips for exploiting mc servers" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>DupeTips Research Docs</title>
+    <meta
+      name="description"
+      content="Documentation-style research notes for studying Minecraft plugin bugs on authorized servers only."
+    />
+
+    <meta property="og:title" content="DupeTips Research Docs" />
+    <meta
+      property="og:description"
+      content="A polished documentation reader for authorized Minecraft server bug research notes."
+    />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://dupe.tips/" />
-    <meta property="og:image" content="http://dupe.tips/favicon.png" />
+    <meta property="og:image" content="/favicon.png" />
     <meta property="og:site_name" content="DupeTips" />
+    <meta name="theme-color" content="#22c55e" />
 
-    <link rel="stylesheet" href="/src/style.css" />
   </head>
 
- <body class="min-h-screen bg-[#242424] text-green-500">
-  <section id="mobile-warning" class="mobile-warning" aria-live="polite">
-    <div class="mobile-warning__card">
-      <p class="mobile-warning__eyebrow">Desktop Recommended</p>
-      <h1 class="mobile-warning__title">Please use a PC or desktop browser.</h1>
-      <p class="mobile-warning__text">
-        DupeTips is designed for larger screens, fuck mobile devices, use a desktop.
-      </p>
-    </div>
-  </section>
-
-  <div id="app-shell" class="grid min-h-screen grid-cols-[280px_1fr]">
-    <aside class="min-h-screen border-r border-green-500/30 bg-black/30 p-5">
-      <h2 class="mb-4 text-2xl font-bold tracking-widest">
-        Info
-      </h2>
-
-      <nav id="info-list" class="space-y-2"></nav>
-    </aside>
-
-    <main class="min-h-screen p-8">
-      <section class="mx-auto max-w-7xl">
-        <h1 class="mb-6 text-4xl font-bold tracking-widest">
-          DupeTips
-        </h1>
-
-        <article
-          id="md-content"
-          class="markdown rounded-2xl border border-green-500/30 bg-black/20 p-6 shadow-lg shadow-green-500/10"
-        >
-        </article>
-      </section>
-    </main>
-  </div>
-
-  <script type="module" src="/src/main.js"></script>
-</body>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
