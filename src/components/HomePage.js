@@ -5,8 +5,8 @@ function homepageCards() {
   return [
     {
       eyebrow: "Foundations",
-      title: "Understand common bug classes",
-      text: "Read concise notes about recurring plugin mistakes, validation gaps, and race-prone flows without losing context.",
+      title: "Learn common bug classes",
+      text: "Read notes about recurring plugin mistakes, validation gaps, and race-prone flows without losing context.",
     },
     {
       eyebrow: "Methodology",
@@ -18,6 +18,7 @@ function homepageCards() {
       title: "Authorized testing only",
       text: "The site frames these notes for responsible research on systems where you have explicit permission to test.",
     },
+    
   ];
 }
 
@@ -55,7 +56,7 @@ export function renderHomeView(docs) {
           <div class="hero-panel" aria-label="Documentation preview">
             <div class="terminal-bar">
               <span></span><span></span><span></span>
-              <strong>docs/index</strong>
+              <strong>/docs</strong>
             </div>
             <div class="panel-lines">
               ${docs.categories
@@ -71,7 +72,7 @@ export function renderHomeView(docs) {
             </div>
             <div class="panel-callout">
               ${iconShield()}
-              <span>Research notes stay readable, responsive, and permission-focused.</span>
+              <span>Notes stay readable, responsive and clear</span>
             </div>
           </div>
         </div>
@@ -93,7 +94,7 @@ export function renderHomeView(docs) {
       <section class="section-block" id="coverage">
         <div class="section-heading">
           <span class="eyebrow-pill">What this site covers</span>
-          <h2>Designed for focused reading.</h2>
+          <h2>Designed for reading.</h2>
         </div>
         <div class="feature-grid">
           ${homepageCards()
