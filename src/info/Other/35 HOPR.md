@@ -22,3 +22,7 @@
 ---
 
 <img src="./images/hor/hor5.png" alt="Hor Image 5" width="650">
+
+---
+
+<img src="./images/hor/hor6.png" alt="Hor Image 6" width="400">
