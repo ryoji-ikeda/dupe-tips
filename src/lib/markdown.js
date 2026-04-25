@@ -102,24 +102,46 @@ function addHeadingIdsAndToc(content) {
 
 function observeHeadings(headings) {
   disconnectTocObserver();
-  const visible = new Map();
 
-  tocObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) visible.set(entry.target.id, entry.intersectionRatio);
-        else visible.delete(entry.target.id);
-      });
+  let frame = null;
 
-      const firstVisible = headings.find((heading) => visible.has(heading.id)) || headings[0];
-      document.querySelectorAll(".toc-link").forEach((link) => {
-        link.classList.toggle("is-active", link.dataset.headingId === firstVisible.id);
-      });
+  const setActiveHeading = () => {
+    frame = null;
+
+    const topbarHeight = document.querySelector("[data-topbar]")?.getBoundingClientRect().height || 0;
+    const activationLine = topbarHeight + 32;
+    let activeHeading = headings[0];
+
+    for (const heading of headings) {
+      if (heading.element.getBoundingClientRect().top <= activationLine) {
+        activeHeading = heading;
+      } else {
+        break;
+      }
+    }
+
+    document.querySelectorAll(".toc-link").forEach((link) => {
+      link.classList.toggle("is-active", link.dataset.headingId === activeHeading.id);
+    });
+  };
+
+  const queueActiveHeadingUpdate = () => {
+    if (frame !== null) return;
+    frame = requestAnimationFrame(setActiveHeading);
+  };
+
+  window.addEventListener("scroll", queueActiveHeadingUpdate, { passive: true });
+  window.addEventListener("resize", queueActiveHeadingUpdate);
+  queueActiveHeadingUpdate();
+
+  tocObserver = {
+    disconnect() {
+      window.removeEventListener("scroll", queueActiveHeadingUpdate);
+      window.removeEventListener("resize", queueActiveHeadingUpdate);
+      if (frame !== null) cancelAnimationFrame(frame);
+      frame = null;
     },
-    { rootMargin: "-20% 0px -65% 0px", threshold: [0, 0.25, 0.5, 1] }
-  );
-
-  headings.forEach((heading) => tocObserver.observe(heading.element));
+  };
 }
 
 function enhanceMarkdownLinks(content) {
