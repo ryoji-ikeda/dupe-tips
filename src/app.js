@@ -17,6 +17,7 @@ const state = {
 };
 
 const HOPR_AUDIO_SRC = "/songs/hopr.mp3";
+const HOPR_UNLOCK_EVENTS = ["pointerdown", "pointermove", "mousemove", "keydown", "touchstart", "wheel", "scroll"];
 let hoprAudio;
 let hoprUnlockHandler;
 
@@ -31,8 +32,9 @@ function getHoprAudio() {
 
 function removeHoprUnlockHandler() {
   if (!hoprUnlockHandler) return;
-  document.removeEventListener("pointerdown", hoprUnlockHandler);
-  document.removeEventListener("keydown", hoprUnlockHandler);
+  HOPR_UNLOCK_EVENTS.forEach((eventName) => {
+    document.removeEventListener(eventName, hoprUnlockHandler, true);
+  });
   hoprUnlockHandler = undefined;
 }
 
@@ -45,15 +47,14 @@ function playHoprAudio() {
 
   if (playPromise?.catch) {
     playPromise.catch(() => {
-      // Some browsers block autoplay until the first user gesture.
-      // If that happens, start the song on the first interaction while still on this page.
       hoprUnlockHandler = () => {
         if (state.currentPage?.slug !== "hopr") return removeHoprUnlockHandler();
-        audio.play().catch(() => {});
-        removeHoprUnlockHandler();
+        audio.currentTime = 0;
+        audio.play().then(removeHoprUnlockHandler).catch(() => {});
       };
-      document.addEventListener("pointerdown", hoprUnlockHandler, { once: true });
-      document.addEventListener("keydown", hoprUnlockHandler, { once: true });
+      HOPR_UNLOCK_EVENTS.forEach((eventName) => {
+        document.addEventListener(eventName, hoprUnlockHandler, { capture: true, passive: true });
+      });
     });
   }
 }
