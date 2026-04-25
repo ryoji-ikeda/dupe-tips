@@ -16,6 +16,55 @@ const state = {
   mobileNavOpen: false,
 };
 
+const HOPR_AUDIO_SRC = "/songs/hopr.mp3";
+let hoprAudio;
+let hoprUnlockHandler;
+
+function getHoprAudio() {
+  if (!hoprAudio) {
+    hoprAudio = new Audio(HOPR_AUDIO_SRC);
+    hoprAudio.loop = true;
+    hoprAudio.preload = "auto";
+  }
+  return hoprAudio;
+}
+
+function removeHoprUnlockHandler() {
+  if (!hoprUnlockHandler) return;
+  document.removeEventListener("pointerdown", hoprUnlockHandler);
+  document.removeEventListener("keydown", hoprUnlockHandler);
+  hoprUnlockHandler = undefined;
+}
+
+function playHoprAudio() {
+  const audio = getHoprAudio();
+  removeHoprUnlockHandler();
+
+  audio.currentTime = 0;
+  const playPromise = audio.play();
+
+  if (playPromise?.catch) {
+    playPromise.catch(() => {
+      // Some browsers block autoplay until the first user gesture.
+      // If that happens, start the song on the first interaction while still on this page.
+      hoprUnlockHandler = () => {
+        if (state.currentPage?.slug !== "hopr") return removeHoprUnlockHandler();
+        audio.play().catch(() => {});
+        removeHoprUnlockHandler();
+      };
+      document.addEventListener("pointerdown", hoprUnlockHandler, { once: true });
+      document.addEventListener("keydown", hoprUnlockHandler, { once: true });
+    });
+  }
+}
+
+function stopHoprAudio() {
+  removeHoprUnlockHandler();
+  if (!hoprAudio) return;
+  hoprAudio.pause();
+  hoprAudio.currentTime = 0;
+}
+
 export function startApp(selector = "#app") {
   const app = document.querySelector(selector);
   if (!app) return;
@@ -207,6 +256,7 @@ function renderRoute() {
   setMobilePanel(false);
   hideSearchResults(true);
   disconnectTocObserver();
+  stopHoprAudio();
 
   if (route.type === "home") outlet.innerHTML = renderHomeView(docs);
   if (route.type === "safety") outlet.innerHTML = renderSafetyView(docs);
@@ -227,6 +277,8 @@ function renderDocsRoute(slug, outlet) {
   state.currentPage = selectedPage;
   outlet.innerHTML = renderDocsView(docs, selectedPage);
   renderMarkdown(selectedPage);
+
+  if (selectedPage.slug === "hopr") playHoprAudio();
 }
 
 function updateActiveTopLinks() {
