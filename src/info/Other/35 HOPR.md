@@ -1,4 +1,4 @@
-# Hall Of Retards
+# Hall Of Purple Roles
 
 
 <img src="./images/hor/hor0.png" alt="Hor Image 0" width="400">
