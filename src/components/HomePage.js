@@ -37,7 +37,7 @@ export function renderHomeView(docs) {
         <div class="hero-grid">
           <div class="hero-copy">
             <div class="eyebrow-pill">Authorized server research only</div>
-            <h1>Bug research notes, rebuilt as a modern documentation hub.</h1>
+            <h1>Documentation hub for mc bug hunting and duping</h1>
             <p>
               DupeTips is organized like a polished docs site with easy to find pages fitted neatly into catagories
             </p>
