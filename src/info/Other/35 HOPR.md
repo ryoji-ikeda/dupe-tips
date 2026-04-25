@@ -45,4 +45,4 @@
 
 ---
 
-<img src="./images/hor/hor11.png" alt="11" width="400">
+<img src="./images/hor/hor11.png" alt="11" width="300">
